@@ -28,13 +28,14 @@ function createServer() {
       return;
     }
 
-    if (url.includes('//')) {
+    const relativePath = url.slice('/file/'.length);
+
+    if (relativePath.includes('//')) {
       send(res, 404, 'File not found');
 
       return;
     }
 
-    const relativePath = url.slice('/file/'.length);
     const resolvedPath = path.resolve(PUBLIC_DIR, relativePath);
 
     if (!resolvedPath.startsWith(PUBLIC_DIR)) {
